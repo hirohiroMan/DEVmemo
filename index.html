@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日記メモ</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <h1>日記メモ</h1>
+
+    <input type="date" id="date-picker">
+    <input type="text" id="title" placeholder="タイトルを入力">
+    <input type="text" id="diary" placeholder="一言日記を入力">
+    <button onclick="saveEntry()">保存</button>
+
+    <h2>メモ一覧</h2>
+    <ul id="entry-list"></ul>
+
+    <script>
+        function saveEntry() {
+            const date = document.getElementById("date-picker").value;
+            const title = document.getElementById("title").value;
+            const diary = document.getElementById("diary").value;
+
+            if (date && title && diary) {
+                const entry = `${date}: ${title} - ${diary}`;
+                const entryListItem = document.createElement("li");
+                entryListItem.textContent = entry;
+                document.getElementById("entry-list").appendChild(entryListItem);
+            } else {
+                alert("日付、タイトル、日記を入力してください。");
+            }
+        }
+    </script>
+</body>
+
+</html>
