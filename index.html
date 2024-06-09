@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>日記メモ</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
@@ -20,6 +20,16 @@
     <ul id="entry-list"></ul>
 
     <script>
+        // ローカルストレージからエントリーを読み込んで表示
+        window.onload = function () {
+            const savedEntries = JSON.parse(localStorage.getItem("entries")) || [];
+            savedEntries.forEach(entry => {
+                const entryListItem = document.createElement("li");
+                entryListItem.textContent = entry;
+                document.getElementById("entry-list").appendChild(entryListItem);
+            });
+        };
+
         function saveEntry() {
             const date = document.getElementById("date-picker").value;
             const title = document.getElementById("title").value;
@@ -30,6 +40,11 @@
                 const entryListItem = document.createElement("li");
                 entryListItem.textContent = entry;
                 document.getElementById("entry-list").appendChild(entryListItem);
+
+                // ローカルストレージにエントリーを保存
+                const savedEntries = JSON.parse(localStorage.getItem("entries")) || [];
+                savedEntries.push(entry);
+                localStorage.setItem("entries", JSON.stringify(savedEntries));
             } else {
                 alert("日付、タイトル、日記を入力してください。");
             }
